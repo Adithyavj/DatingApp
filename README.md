@@ -70,3 +70,9 @@ This class acts as a bridge between our domain(Entity classes) and out database.
 ## Creating Migrations
 To create a migration and place it in the folder Data/Migrations, run the following command
 ```dotnet ef migrations add InitialCreate -o Data/Migrations```
+
+
+## WebAPI
+We make all the API calls asynchronous to make the app more scalable. If the no. of users increases and the app is handling 
+the api calls synchronously, then the thread handling one request will be blocked and this reduces scalability.
+So we use asynchronous methods
