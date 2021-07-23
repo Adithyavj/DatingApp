@@ -80,3 +80,16 @@ So we use asynchronous methods
 ## Angular
 To Install Angular globally,
 ```npm install -g @angular/cli```
+
+- When running angular app using ```ng serve```, it compiles the ts files to js and serves them from memory.
+- The js files that are compiled during runtime are injected to the index.html file using a utility called
+webpack. This is done by the Angular CLI.
+- The main.ts file bootstraps AppModule and inside the AppModule we bootstrap AppComponent.
+AppComponent is declared as a selector inside index.html.
+
+### Some good VSCode extensions for Angular
+- Angular Language Service
+- Angular Snippets (Version 12)
+- Bracket Pair Colorizer 2
+
+
