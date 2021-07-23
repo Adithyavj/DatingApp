@@ -4,6 +4,7 @@
 - .NET (5.0)
 - Angular
 - Entity Framework
+- Sqllite (As development database)
 
 ## The programming languages that will be used
 - HTML
@@ -42,4 +43,24 @@ configure httprequest pipeline, controller mapping etc
 To make live changes to files during run, run using the following command
 ```dotnet watch run```
 
+## Entity Framework
+- An ORM (Object Relational Mapper)
+- Translate our code into SQL commands that update our tables in the database.
+- It has DbContext class from which we derive our context class to communicate with database.
+This class acts as a bridge between our domain(Entity classes) and out database.
+
+### Features of Entity Framework
+- Query our database using LINQ (Language Integrated Queries).
+- Change tracking. (Keep track of changes occuring).
+- It allows to insert, update and delete from DB.
+- Gives us a SaveChanges method to save these changes to the database.
+- Concurrency.
+- Provides automatic transaction management.
+- Caching - Repeated quering return data from cache.
+- Build-in conventions
+- Configure entities to override the conventions.
+- Migrations - create a db schema.
+
+## Installing Entity Framework package
+- Install Microsoft.EntityFrameworkCore.Sqlite
 
