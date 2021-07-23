@@ -64,3 +64,9 @@ This class acts as a bridge between our domain(Entity classes) and out database.
 ## Installing Entity Framework package
 - Install Microsoft.EntityFrameworkCore.Sqlite
 
+## Installing dotnet ef tools
+```dotnet tool install --global dotnet-ef --version 5.0.8```
+
+## Creating Migrations
+To create a migration and place it in the folder Data/Migrations, run the following command
+```dotnet ef migrations add InitialCreate -o Data/Migrations```
