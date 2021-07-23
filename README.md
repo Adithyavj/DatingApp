@@ -76,3 +76,7 @@ To create a migration and place it in the folder Data/Migrations, run the follow
 We make all the API calls asynchronous to make the app more scalable. If the no. of users increases and the app is handling 
 the api calls synchronously, then the thread handling one request will be blocked and this reduces scalability.
 So we use asynchronous methods
+
+## Angular
+To Install Angular globally,
+```npm install -g @angular/cli```
