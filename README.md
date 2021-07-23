@@ -1,6 +1,6 @@
 # DatingApp
 
-## The projct will be using the following technologies
+## The project will be using the following technologies
 - .NET (5.0)
 - Angular
 - Entity Framework
