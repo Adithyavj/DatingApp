@@ -97,4 +97,10 @@ we inject the http module in the constructor of app.component.ts using DI
 http methods are asynchronous so we use them in the ngOnInit() lifecycle event which works
 right after constructor.
 
+## CORS (Cross Origin Resource Sharing)
+It is a security mechanism built into all mordern web browsers.
+It block the http requests from our front end (Angular app) to any api that is not
+in the same origin and local host of webapi is 5001, front end is 4200.
+We cannot access the api unless it provides a header saying that it's ok.
 
+So we have to allow cors in .net api startup.cs and provide the origin of angular app.

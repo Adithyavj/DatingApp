@@ -29,10 +29,13 @@ namespace API
         // This method is often referred to as the dependency injection container
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options => 
+            // add service for DbContext
+            services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
+            // add service for CORS
+            services.AddCors();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -54,6 +57,8 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            // add cors to accept the requests from Angular running in localhost:4200
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200"));
 
             app.UseAuthorization();
 
