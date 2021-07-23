@@ -92,4 +92,9 @@ AppComponent is declared as a selector inside index.html.
 - Angular Snippets (Version 12)
 - Bracket Pair Colorizer 2
 
+In Angular we communicate with the API using HttpClientModule.
+we inject the http module in the constructor of app.component.ts using DI
+http methods are asynchronous so we use them in the ngOnInit() lifecycle event which works
+right after constructor.
+
 
