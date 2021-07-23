@@ -104,3 +104,11 @@ in the same origin and local host of webapi is 5001, front end is 4200.
 We cannot access the api unless it provides a header saying that it's ok.
 
 So we have to allow cors in .net api startup.cs and provide the origin of angular app.
+
+## Adding Angular BootStrap package
+[Angular BootStrap](https://valor-software.com)
+Run the following command
+```ng add ngx-bootstrap```
+
+## Adding Font awesome
+```npm install font-awesome```
