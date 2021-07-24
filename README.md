@@ -119,6 +119,8 @@ Passwords can be saved in the database in 3 ways.
 1. Clear text
 2. Hashing password (use a hashing algorithm to encrypt the password before sending it to DB)
 3. Hashing and salting password ()
+### Salting protects against general dictionay attack of passwords. But doesn't protect poor passwords.
+
 We are using 3rd one.
 Sqlite stored byte[] as BLOB - (Binary Large Objects)
 
@@ -152,6 +154,11 @@ Json is a long string with 3 parts each seperated with a comma (,):
   - No cookies required - mobile friendly.
   - Performance - Once a token is issued, there is no need to make a database request to verify a users authentication.
 
+## Services
+Services implement the Single Responsibiliy Principle. They are only responsible for a single task. Here we create a TokenService which
+is responsible for only generating a token based on the userinfo passed in.
+Recieve a user <-> return a token.
+
   ## Why Interface?
   In the TokenService, we create an interface ITokenService. Why is this necessary?
   The TokenService can work without the interface.
@@ -159,3 +166,13 @@ Json is a long string with 3 parts each seperated with a comma (,):
   - Testing (it is very easy to mock an interface's behaviour.)
   - It is a best practise.
   
+
+  ## Extension Methods
+  Extension methods enable us to add methods to existing types without modifying the original type.
+  We can extend the interface IServiceCollection in startup.cs and contain all the services 
+  that we are creating in extension classes.
+  When creating an extension method:
+  - The class, methods should be static
+  - It should return an IServiceCollection
+
+Extension methods help in reusing certain methods
