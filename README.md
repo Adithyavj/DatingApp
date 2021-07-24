@@ -112,3 +112,12 @@ Run the following command
 
 ## Adding Font awesome
 ```npm install font-awesome```
+
+
+## Storing password
+Passwords can be saved in the database in 3 ways.
+1. Clear text
+2. Hashing password (use a hashing algorithm to encrypt the password before sending it to DB)
+3. Hashing and salting password ()
+We are using 3rd one.
+Sqlite stored byte[] as BLOB - (Binary Large Objects)
