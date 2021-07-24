@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Data;
+using API.Interfaces;
+using API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,12 @@ namespace API
             });
             // add service for CORS
             services.AddCors();
+
+            // Personal Services
+            // we need to specify its lifetime (how long this should be alive for once we start it)
+            // the one most suitable for an http request is AddScoped. This start when an http request comes in and lives till the http request is finished.
+            // AddScoped is scoped to the lifetime of the httprequest
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

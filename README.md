@@ -121,3 +121,41 @@ Passwords can be saved in the database in 3 ways.
 3. Hashing and salting password ()
 We are using 3rd one.
 Sqlite stored byte[] as BLOB - (Binary Large Objects)
+
+
+## JWT (JSON Web Token)
+- JSON web token is an industry standard for token (RFC 7519).
+- Self-contained and can contain:
+  - Credentials
+  - Claims
+  - Other information
+
+Json is a long string with 3 parts each seperated with a comma (,):
+- 1. Header (Algorithm & Token type)
+  - Algorithm - [used to encrypt the signature in the 3rd part of the token]
+  - Type of token that it is - [type here is JWT]
+- 2. PayLoad (Data)
+  - Contains information about claims and credentials.
+  - It can contains details like:
+    - nameid
+    - role
+    - nbf (token cannot be used before a certain date and time)
+    - exp (token cannot be used after this date)
+    - iat (when the toke was issued at)
+- 3. Signature
+  - The signature is encrypted by a secure key (secret key) at the server side. This key never leaves the server.
+  - Only the signature part of the token is encrypted.
+
+  ### Benifits of using JWT
+  - No session to manage - JWTs are self-contained tokens.
+  - Portable - A single token can be used with multiple backends.
+  - No cookies required - mobile friendly.
+  - Performance - Once a token is issued, there is no need to make a database request to verify a users authentication.
+
+  ## Why Interface?
+  In the TokenService, we create an interface ITokenService. Why is this necessary?
+  The TokenService can work without the interface.
+  It is used because
+  - Testing (it is very easy to mock an interface's behaviour.)
+  - It is a best practise.
+  
