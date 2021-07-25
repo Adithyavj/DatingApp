@@ -53,5 +53,14 @@ Services are :
 - Injectable
 - Singleton - data stored inside service doesn't get destroyed until the app is closed.
 
-Structural directive
+## Structural directive
+They modify the dom
 *ngIf
+*ngFor
+
+## Directives
+simple text inside html tag 
+eg:- 
+```
+<div class="btn-group" dropdown> <!-- here dropdown is a directive -->
+```
