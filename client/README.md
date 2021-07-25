@@ -25,3 +25,18 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 ## Create a component without test file
 ```ng g c <name> --skip-tests```
+
+
+## Angular Concepts:
+How do we tell a form that it is an Angular Form?
+For this we can use the template reference variable using the # followed by the formName and assign it as an ngForm
+Template reference variable - #<formname>="ngForm"
+
+Angular allows 2 way binding between properties and html
+()- binds the html to ts (used when data goes from template(html) to the component)
+[]-binds the ts to html (used for recieving date from our component to template(html))
+[()] -2 way binding between template and component
+
+for using 2 way binding in an input, we need to 
+- give it a name
+- [(ngModel)]="binding" (we assign ngModel to the property in the ts file that it is bound to)
