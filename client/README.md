@@ -51,4 +51,4 @@ Angular service is a Singleton - When we goto a component and initialize the ser
 app is disposed of.
 Services are :
 - Injectable
-- Singleton - data stored inside service doesn't get destored until the app is closed.
+- Singleton - data stored inside service doesn't get destroyed until the app is closed.
