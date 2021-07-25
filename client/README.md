@@ -27,6 +27,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ```ng g c <name> --skip-tests```
 
 
+## Create a service without test file
+```ng g s <name> --skip-tests```
+
 ## Angular Concepts:
 How do we tell a form that it is an Angular Form?
 For this we can use the template reference variable using the # followed by the formName and assign it as an ngForm
@@ -40,3 +43,12 @@ Angular allows 2 way binding between properties and html
 for using 2 way binding in an input, we need to 
 - give it a name
 - [(ngModel)]="binding" (we assign ngModel to the property in the ts file that it is bound to)
+
+
+## Service
+It has an @Injectable decorator - the service can be injected to other services or components.
+Angular service is a Singleton - When we goto a component and initialize the service, it will stay initialized till the 
+app is disposed of.
+Services are :
+- Injectable
+- Singleton - data stored inside service doesn't get destored until the app is closed.
