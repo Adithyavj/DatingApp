@@ -52,3 +52,6 @@ app is disposed of.
 Services are :
 - Injectable
 - Singleton - data stored inside service doesn't get destroyed until the app is closed.
+
+Structural directive
+*ngIf
