@@ -63,4 +63,51 @@ simple text inside html tag
 eg:- 
 ```
 <div class="btn-group" dropdown> <!-- here dropdown is a directive -->
+
 ```
+## Observables
+New standard for managing async data. Included in ES7.
+Observables are lazy collections of multiple values over time.
+We use them for http requests and when components need to observe a value
+You can think of it as a newsletter
+ - only subscribers of the newsletter recieve it.
+ In js, we use promise to handle async code.
+
+ ### Promise vs Observables
+ 1. Provides a single future value          1. Emits multiple values over time
+ 2. Are not Lazy                            2. Are Lazy
+ 3. We cannot cancel it                     3. Able to cancel because they use streams of data
+                                            4. can be used with map,filter,reduce and other operators. (using RxJS)
+
+We have to subscribe to an obervable to do something
+
+## RxJS (Reactive extensions for javascript)
+They work with observables. We can transform data before subscribing to an observable by adding a pipe() method on the observable
+```
+    getMembers(){
+        return this.http.get('api/users').pipe( // pipe is a method in RxJs we can chain as many methods as we want inside it
+            map(members => {
+                console.log(member.id)
+                return member.id
+            })
+        )
+    }
+```
+
+***Observable Signature:***
+```
+   getMembers(){
+       this.service.getMembers().subscribe(members => { // what to do next
+           this.members = members
+       }, error =>{ //what to do if there is an error
+           console.log(error);
+       }, ()=>{ // when subscription is complete
+           console.log('completed);
+       })
+   } 
+```
+
+We can get data from observables by 
+1. Subscribe
+2. Promise()
+3. Async pipe - automatically subscribes/unsubscribes from the observable
