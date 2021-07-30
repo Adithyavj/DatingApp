@@ -11,16 +11,12 @@ import { AccountService } from '../_services/account.service';
 export class NavComponent implements OnInit {
 
   model: any = {};
-  // TODO Change this code and initialize this to null initially
-  currentUser$: Observable<User>=new Observable;
 
   // inject accountservice for http request
-  constructor(private accountService: AccountService) {
-    
-  }
+  // make accountService public to access inside the template (html)
+  constructor(public accountService: AccountService) {  }
 
   ngOnInit(): void {
-    this.currentUser$ = this.accountService.currentUser$;
   }
 
   login() {

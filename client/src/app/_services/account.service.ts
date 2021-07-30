@@ -10,7 +10,6 @@ import { User } from '../_models/user';
 export class AccountService {
 
   baseUrl = 'https://localhost:5001/api/';
-
   // observable to store the user in
   private currentUserSource = new ReplaySubject<User>(1); // buffer of size 1
   currentUser$ = this.currentUserSource.asObservable(); // observable $ sign specifies it's an observable
@@ -37,6 +36,6 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('user'); // remove user from localstorage
-    this.currentUserSource.next(null!);
+    this.currentUserSource.next(null);
   }
 }
