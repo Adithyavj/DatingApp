@@ -31,6 +31,21 @@ export class AccountService {
     )
   }
 
+  register(model: any) {
+    return this.http.post(this.baseUrl + 'account/register', model).pipe(
+      // once a user registers, we consider them to be logged in
+      map((user: User) => {
+        if (user) {
+          localStorage.setItem('user', JSON.stringify(user));
+          this.currentUserSource.next(user);
+        }
+        return user;
+      })
+    )
+  }
+
+
+
   // helper method
   setCurrentUser(user: User) {
     this.currentUserSource.next(user);
