@@ -23,10 +23,14 @@ export class HomeComponent implements OnInit {
   }
 
 
-  getUsers(){
-    this.http.get('https://localhost:5001/api/users').subscribe(users=>{
+  getUsers() {
+    this.http.get('https://localhost:5001/api/users').subscribe(users => {
       this.users = users; // assign the users that come back to this.users method here
     })
+  }
+
+  cancelRegisterMode(event: boolean) {
+    this.registerMode = event;
   }
 
 }
