@@ -116,3 +116,6 @@ We can get data from observables by
 
 ## To add notification toaster
 ```npm install ngx-toastr```
+
+## Creating guards
+```ng g guard <name>```
