@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { observable, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 
@@ -11,12 +11,13 @@ import { AccountService } from '../_services/account.service';
 export class NavComponent implements OnInit {
 
   model: any = {};
-
+  currentUser$ = new Observable<User>();
   // inject accountservice for http request
   // make accountService public to access inside the template (html)
-  constructor(public accountService: AccountService) {  }
+  constructor(public accountService: AccountService) { }
 
   ngOnInit(): void {
+    this.currentUser$ = this.accountService.currentUser$;
   }
 
   login() {

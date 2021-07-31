@@ -5,14 +5,16 @@ import { map } from 'rxjs/operators'
 import { User } from '../_models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' // specifies it is provided in the root. No need for us to add it in module.ts
 })
 export class AccountService {
 
   baseUrl = 'https://localhost:5001/api/';
-  // observable to store the user in
+  // observable to store the user coming back from api after login method
   private currentUserSource = new ReplaySubject<User>(1); // buffer of size 1
   currentUser$ = this.currentUserSource.asObservable(); // observable $ sign specifies it's an observable
+  // currentUser$ can have only 2 values - null or User
+
 
   // inject httpclient to ctor
   constructor(private http: HttpClient) { }
