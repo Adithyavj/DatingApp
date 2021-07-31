@@ -11,13 +11,11 @@ import { AccountService } from '../_services/account.service';
 export class NavComponent implements OnInit {
 
   model: any = {};
-  currentUser$ = new Observable<User>();
   // inject accountservice for http request
-  // make accountService public to access inside the template (html)
+  // make accountService public to access inside the template (html) - this is for doing async pipe in the template
   constructor(public accountService: AccountService) { }
 
   ngOnInit(): void {
-    this.currentUser$ = this.accountService.currentUser$;
   }
 
   login() {

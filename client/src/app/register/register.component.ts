@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
   model: any = {};
+  // passing values from parent component to child (here home to register)
+  // in this case this input() will get the users from home
+  @Input() usersFromHomeComponent: any;
 
-  constructor() { }
+  constructor() {
+    console.log(this.usersFromHomeComponent);
+   }
 
   ngOnInit(): void {
   }
