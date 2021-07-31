@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -12,7 +13,8 @@ export class NavComponent implements OnInit {
   model: any = {};
   // inject accountservice for http request
   // make accountService public to access inside the template (html) - this is for doing async pipe in the template
-  constructor(public accountService: AccountService, private router: Router) { }
+  // inject router service, toastr service
+  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +25,7 @@ export class NavComponent implements OnInit {
       this.router.navigateByUrl('/members');
     }, error => {
       console.log(error);
+      this.toastr.error(error.error);
     });
   }
 
