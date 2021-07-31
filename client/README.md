@@ -111,3 +111,8 @@ We can get data from observables by
 1. Subscribe
 2. Promise()
 3. Async pipe - automatically subscribes/unsubscribes from the observable
+
+
+
+## To add notification toaster
+```npm install ngx-toastr```
