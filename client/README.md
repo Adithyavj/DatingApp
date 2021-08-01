@@ -128,5 +128,11 @@ eg:-
     "styles": [
               "./node_modules/font-awesome/css/font-awesome.css",
             ],
+    // Add it beneath the bootstrap.min.css
 ```
-// Add it beneath the bootstrap.min.css
+
+## We can tidy up our module.ts file by moving some of the code to a new module
+creating a new module file:
+```
+    ng g m <name> --flat // flat is used so that it doesn't create a folder to store the module inside it
+```
