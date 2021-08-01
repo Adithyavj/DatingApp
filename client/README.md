@@ -136,3 +136,5 @@ creating a new module file:
 ```
     ng g m <name> --flat // flat is used so that it doesn't create a folder to store the module inside it
 ```
+
+## Error Handling
