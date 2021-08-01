@@ -1,5 +1,5 @@
 // Interface in ts is used to specify types of things
 export interface User {
-    username: string;
+    userName: string;
     token: string;
 }
