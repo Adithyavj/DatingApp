@@ -119,3 +119,14 @@ We can get data from observables by
 
 ## Creating guards
 ```ng g guard <name>```
+
+## Install bootswatch (Bootstrap theme)
+```npm install bootswatch```
+add the theme you want to angular.json styles[]
+eg:-
+```    
+    "styles": [
+              "./node_modules/font-awesome/css/font-awesome.css",
+            ],
+```
+// Add it beneath the bootstrap.min.css
