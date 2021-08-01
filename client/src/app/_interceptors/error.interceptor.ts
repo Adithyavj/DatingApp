@@ -25,10 +25,10 @@ export class ErrorInterceptor implements HttpInterceptor {
               for (const key in error.error.errors) {
                 if (error.error.errors[key]) {
                   // push all the errors into the array
-                  modalStateErrors.push(error.error.errors);
+                  modalStateErrors.push(error.error.errors[key]);
                 }
               }
-              throw modalStateErrors;
+              throw modalStateErrors.flat();
             } else { // 400 bad request error
               this.toastr.error(error.statusText, error.status);
             }
