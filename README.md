@@ -71,6 +71,16 @@ This class acts as a bridge between our domain(Entity classes) and out database.
 To create a migration and place it in the folder Data/Migrations, run the following command
 ```dotnet ef migrations add InitialCreate -o Data/Migrations```
 
+## Adding a migration and updating changes to db
+```
+  dotnet ef migrations add <name>
+  dotnet ef database update
+```
+
+## Droping database
+```
+  dotnet ef database drop
+```
 
 ## WebAPI
 We make all the API calls asynchronous to make the app more scalable. If the no. of users increases and the app is handling 
