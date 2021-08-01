@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using API.Extensions;
 
 namespace API.Entities
 {
@@ -20,5 +21,12 @@ namespace API.Entities
         public string City { get; set; }
         public string Country { get; set; }
         public ICollection<Photo> Photos { get; set; }
+
+
+        // calls an extension method on datetime that we created to calculate the Age based on dob
+        public int GetAge()
+        {
+            return DateOfBirth.CalculateAge();
+        }
     }
 }
