@@ -23,9 +23,6 @@ export class NavComponent implements OnInit {
     // this returns an observable so we need to subscribe to listen to it
     this.accountService.login(this.model).subscribe(response => {
       this.router.navigateByUrl('/members');
-    }, error => {
-      console.log(error);
-      this.toastr.error(error.error);
     });
   }
 
