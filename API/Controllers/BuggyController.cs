@@ -34,18 +34,10 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetServerError()
         {
-            try
-            {
-                var nFound = _context.Users.Find(-1);
-                var thingToReturn = nFound.ToString(); // nFound will be null since there is no user with id -1(primary key), so this will create an exception
+            var nFound = _context.Users.Find(-1);
+            var thingToReturn = nFound.ToString(); // nFound will be null since there is no user with id -1(primary key), so this will create an exception
 
-                return thingToReturn;
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"500 server error : {ex.ToString()}");
-            }
-
+            return thingToReturn;
         }
 
         [HttpGet("bad-request")]
