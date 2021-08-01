@@ -2,13 +2,13 @@
 
 ## The project will be using the following technologies
 - .NET (5.0)
-- Angular
-- Entity Framework
-- Sqllite (As development database)
+- Angular 12
+- Entity Framework Core
+- Sqlite (As development database)
 
 ## The programming languages that will be used
 - HTML
-- BootStrap
+- Bootstrap
 - CSS
 - TypeScript
 - C#
