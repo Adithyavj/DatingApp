@@ -1,3 +1,4 @@
+using System;
 using API.Data;
 using API.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -33,10 +34,17 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetServerError()
         {
-            var nFound = _context.Users.Find(-1);
-            var thingToReturn = nFound.ToString(); // nFound will be null since there is no user with id -1(primary key), so this will create an exception
+            try
+            {
+                var nFound = _context.Users.Find(-1);
+                var thingToReturn = nFound.ToString(); // nFound will be null since there is no user with id -1(primary key), so this will create an exception
 
-            return thingToReturn;
+                return thingToReturn;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"500 server error : {ex.ToString()}");
+            }
 
         }
 
