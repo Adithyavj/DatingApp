@@ -1,4 +1,5 @@
 using API.Data;
+using API.Helpers;
 using API.Interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
@@ -26,9 +27,12 @@ namespace API.Extensions
             // the one most suitable for an http request is AddScoped. This start when an http request comes in and lives till the http request is finished.
             // AddScoped is scoped to the lifetime of the httprequest
             services.AddScoped<ITokenService, TokenService>();
-            
+
             // add dependency injection for repositories
-            services.AddScoped<IUserRepository,UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+
+            // Adding automapper DI
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             return services;
         }
     }
