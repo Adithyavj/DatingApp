@@ -43,15 +43,15 @@ namespace API
         // Ordering is very important inside this method
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // use our custom middleware
+            app.UseMiddleware<ExceptionMiddleware>();
+            
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
-
-            app.UseMiddleware<ExceptionMiddleware>();
-
             app.UseHttpsRedirection();
 
             app.UseRouting();

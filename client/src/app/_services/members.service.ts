@@ -8,17 +8,17 @@ import { Member } from '../_models/member';
 const httpOptions = {
   headers: new HttpHeaders({
     Authorization: 'Bearer ' + JSON.parse(localStorage.getItem('user')).token
-
   })
 }
-
 @Injectable({
   providedIn: 'root'
 })
 export class MembersService {
 
   baseUrl = environment.apiUrl;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    console.log(httpOptions);
+  }
 
   // get all users, pass token
   getMembers() {

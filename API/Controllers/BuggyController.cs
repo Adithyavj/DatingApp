@@ -15,22 +15,37 @@ namespace API.Controllers
             _context = context;
         }
 
+        // 400 Bad Request Error
+        [HttpGet("bad-request")]
+        public ActionResult<string> GetBadRequest()
+        {
+            return BadRequest("This was a bad request");
+        }
+
+        // 401 Unauthorized Error
         [Authorize]
         [HttpGet("auth")]
         public ActionResult<string> GetSecret()
         {
-            return "Secret Text";
+            return "secret text";
         }
 
+        // 404 Not Found error
         [HttpGet("not-found")]
         public ActionResult<AppUser> GetNotFound()
         {
             var nFound = _context.Users.Find(-1);
-            if (nFound == null) return NotFound();
-
-            return Ok(nFound);
+            if (nFound == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Ok(nFound);
+            }
         }
 
+        // 500 Internal Server Error
         [HttpGet("server-error")]
         public ActionResult<string> GetServerError()
         {
@@ -40,10 +55,5 @@ namespace API.Controllers
             return thingToReturn;
         }
 
-        [HttpGet("bad-request")]
-        public ActionResult<string> GetBadRequest()
-        {
-            return BadRequest("This was a bad request");
-        }
     }
 }
