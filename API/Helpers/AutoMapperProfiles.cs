@@ -10,7 +10,7 @@ namespace API.Helpers
         {
             // where to map from and where to map to
             // here appuser to membersdto
-            CreateMap<AppUser, MembersDto>();
+            CreateMap<AppUser, MemberDto>();
             CreateMap<Photo, PhotoDto>();
         }
     }
