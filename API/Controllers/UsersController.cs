@@ -29,13 +29,19 @@ namespace API.Controllers
         // IEnumberable return a collection of users
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
-            var users = await _userRepository.GetUsersAsync();
+            // old code
+            #region Old-Code
+            // var users = await _userRepository.GetUsersAsync();
 
-            // using automapper to map users to MemberDto
-            var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
+            // // using automapper to map users to MemberDto
+            // var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
 
-            // since we are returning an ActionResult, we wrap it in OK()
-            return Ok(usersToReturn);
+            // // since we are returning an ActionResult, we wrap it in OK()
+            // return Ok(usersToReturn);
+            #endregion
+            var users = await _userRepository.GetMembersAsync();
+            return Ok(users);
+
         }
 
         // api/Users/adithya
@@ -43,9 +49,7 @@ namespace API.Controllers
         // returns a single user
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            var user = await _userRepository.GetUserByUsernameAsync(username);
-
-            return _mapper.Map<MemberDto>(user);
+            return await _userRepository.GetMemberAsync(username);
         }
     }
 }

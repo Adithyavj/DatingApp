@@ -24,9 +24,9 @@ namespace API.Entities
 
 
         // calls an extension method on datetime that we created to calculate the Age based on dob
-        public int GetAge()
-        {
-            return DateOfBirth.CalculateAge();
-        }
+        // public int GetAge()
+        // {
+        //     return DateOfBirth.CalculateAge();
+        // }
     }
 }
