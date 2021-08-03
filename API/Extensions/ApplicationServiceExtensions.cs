@@ -26,7 +26,9 @@ namespace API.Extensions
             // the one most suitable for an http request is AddScoped. This start when an http request comes in and lives till the http request is finished.
             // AddScoped is scoped to the lifetime of the httprequest
             services.AddScoped<ITokenService, TokenService>();
-
+            
+            // add dependency injection for repositories
+            services.AddScoped<IUserRepository,UserRepository>();
             return services;
         }
     }

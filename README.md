@@ -186,3 +186,26 @@ Recieve a user <-> return a token.
   - It should return an IServiceCollection
 
 Extension methods help in reusing certain methods
+
+
+## Repository Pattern
+A repository mediates between the domain and data mapping layers, acting like an in-memory
+domain object collection.
+- By using Repository, we introduce a layer of abstraction, repository acts as a layer between dbcontext and controller.
+
+### Reasons for using this pattern;
+- It encapsulates the logic.
+- Reduces Duplicate query logic.
+- Promotes testablility (unit testing becomes easy),(we can use mockRepository for testing)
+
+### Advantages of Repository
+- Minimizes duplicate query logic
+- Decouples application from persistence framework
+- All database queries are centralised and not scattered throughout the application.
+- Allows us to change ORM easily*.
+- Promotes testability. - we can easily mock a repository interface, testing against the dbcontext is more difficult.
+
+### Disadvantages of Repository
+- Abstraction of an abstraction (EF is already an abstraction)
+- Each root entity should have it's own repository (more code)
+- Also need to implement the UnitOfWork pattern to control transactions.
