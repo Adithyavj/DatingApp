@@ -142,3 +142,10 @@ We handle the errors globally in Angular using http interceptors
 ```
     ng g interceptor <name>
 ```
+We also send the token along with the http headers in all requests, this is done using interceptor (jwt interceptor)
+
+## Installing photo gallery
+[Source Page: npmjs](https://www.npmjs.com/package/@kolkov/ngx-gallery)
+```
+    npm install @kolkov/ngx-gallery
+```
