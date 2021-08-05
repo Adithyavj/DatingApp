@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { Member } from 'src/app/_models/member';
 import { User } from 'src/app/_models/user';
@@ -15,7 +16,7 @@ export class MemberEditComponent implements OnInit {
   member: Member;
   user: User;
 
-  constructor(private accountService: AccountService, private memberService: MembersService) {
+  constructor(private accountService: AccountService, private memberService: MembersService, private toastr: ToastrService) {
     // taking current user out of the observable and assigning it to user property
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);
   }
@@ -31,6 +32,10 @@ export class MemberEditComponent implements OnInit {
     })
   }
 
+  updateMember() {
+    console.log(this.member);
+    this.toastr.success('Profile updated successfully');
+  }
 
 
 }

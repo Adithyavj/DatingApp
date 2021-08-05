@@ -38,7 +38,7 @@
     <div class="col-8">
         <tabset class="member-tabset">
             <tab heading='About {{member.knownAs}}'>
-                <form>
+                <form #editForm="ngForm" (ngSubmit)="updateMember()">
                     <h4>Description</h4>
                     <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction"
                         rows="6"></textarea>
