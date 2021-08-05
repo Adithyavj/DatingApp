@@ -149,3 +149,10 @@ We also send the token along with the http headers in all requests, this is done
 ```
     npm install @kolkov/ngx-gallery
 ```
+
+## Installing spinner
+[Source Page: npmjs](https://www.npmjs.com/package/ngx-spinner)
+```
+    npm install @angular/cdk
+    ng add ngx-spinner
+```
