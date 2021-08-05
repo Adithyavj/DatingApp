@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { Member } from 'src/app/_models/member';
@@ -12,7 +13,9 @@ import { MembersService } from 'src/app/_services/members.service';
   styleUrls: ['./member-edit.component.css']
 })
 export class MemberEditComponent implements OnInit {
-
+  // we can access the template form inside the component
+  // by using ViewChild directive and providing the selector we are looking for
+  @ViewChild('editForm') editForm: NgForm;
   member: Member;
   user: User;
 
@@ -35,6 +38,7 @@ export class MemberEditComponent implements OnInit {
   updateMember() {
     console.log(this.member);
     this.toastr.success('Profile updated successfully');
+    this.editForm.reset(this.member);
   }
 
 
