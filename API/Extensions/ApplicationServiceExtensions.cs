@@ -28,6 +28,9 @@ namespace API.Extensions
             // AddScoped is scoped to the lifetime of the httprequest
             services.AddScoped<ITokenService, TokenService>();
 
+            // add dependency injection for photo service (we use cloudinary)
+            services.AddScoped<IPhotoService, PhotoService>();
+
             // add dependency injection for repositories
             services.AddScoped<IUserRepository, UserRepository>();
 
