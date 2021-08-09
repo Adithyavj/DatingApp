@@ -159,3 +159,22 @@ We also send the token along with the http headers in all requests, this is done
 
 ## State management
 Redux/Mobex state management, but angular has services that can manage states
+
+
+## REST API
+Representational State Transfer is a software architecture style that defines a set of constraints to be used
+when creating web servies.
+
+## Storing images
+Options available:
+- We can store it in the Database as Binary Large Objects (BLOB)
+- Use file systems on server to store and return the images.
+- Using a cloud service. (Cloudinary)
+
+Here, we use Cloudinary:-
+1. Client uploads photo to API with JWT 
+2. Server uploads photo to cloudinary
+3. Cloudinary store the photo, sends response
+4. API saves photo URL and Public ID to DB
+5. Saved in DB and gives auto generated ID
+6. 201 response created and send to client with location in header

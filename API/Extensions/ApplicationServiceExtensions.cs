@@ -33,6 +33,10 @@ namespace API.Extensions
 
             // Adding automapper DI
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
+            // Adding service for cloudinarySettings- for accessing the settings via the CloudinarySettings class
+            services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
+
             return services;
         }
     }
