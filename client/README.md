@@ -156,3 +156,6 @@ We also send the token along with the http headers in all requests, this is done
     npm install @angular/cdk
     ng add ngx-spinner
 ```
+
+## State management
+Redux/Mobex state management, but angular has services that can manage states
