@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using API.Data;
 using API.DTOs;
 using API.Entities;
+using API.Extensions;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,9 +20,11 @@ namespace API.Controllers
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly IPhotoService _photoService;
 
-        public UsersController(IUserRepository userRepository, IMapper mapper)
+        public UsersController(IUserRepository userRepository, IMapper mapper, IPhotoService photoService)
         {
+            _photoService = photoService;
             _mapper = mapper;
             _userRepository = userRepository;
         }
@@ -57,10 +61,8 @@ namespace API.Controllers
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
             // fetches the user's username from the token that the api is using to authenticate this endpoint
-            var username = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-
             // fetch userdetails using the username 
-            var user = await _userRepository.GetUserByUsernameAsync(username);
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUserName()); // calling extension method to get username
 
             // mapping memberupdateDto coming from client to user(AppUser) object
             _mapper.Map(memberUpdateDto, user);
@@ -74,6 +76,46 @@ namespace API.Controllers
             }
 
             return BadRequest("Failed to update user");
+        }
+
+        // method to add a photo
+        [HttpPost("add-photo")]
+        public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
+        {
+            // fetch userdetails using the username 
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUserName()); // calling extension method to get username
+
+            // send photo from client(Angular) to the Cloudinary API
+            var result = await _photoService.AddPhotoAsync(file);
+
+            if (result.Error != null)
+            {
+                return BadRequest(result.Error.Message);
+            }
+
+            // mapping values obtained from result(Cloudinary API) to our Photo enitity
+            var photo = new Photo
+            {
+                Url = result.SecureUrl.AbsoluteUri,
+                PublicId = result.PublicId
+            };
+
+            // if it's the first photo, set it to main
+            if (user.Photos.Count == 0)
+            {
+                photo.IsMain = true;
+            }
+
+            // track the photo entity
+            user.Photos.Add(photo);
+            // save changes to DataBase
+            if (await _userRepository.SaveAllAsync())
+            {
+                // map result entity to photoDto to pass to client
+                return _mapper.Map<PhotoDto>(photo);
+            }
+
+            return BadRequest("Problem Adding Photo");
         }
 
     }
