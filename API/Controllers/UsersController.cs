@@ -50,7 +50,8 @@ namespace API.Controllers
         }
 
         // api/Users/adithya
-        [HttpGet("{username}")]
+        // naming this route so that we can return CreatedAtRoute in photo post method
+        [HttpGet("{username}", Name = "GetUser")]
         // returns a single user
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
@@ -111,8 +112,8 @@ namespace API.Controllers
             // save changes to DataBase
             if (await _userRepository.SaveAllAsync())
             {
-                // map result entity to photoDto to pass to client
-                return _mapper.Map<PhotoDto>(photo);
+                // map result entity to photoDto to pass to client with a 201 Created response
+                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
             }
 
             return BadRequest("Problem Adding Photo");
