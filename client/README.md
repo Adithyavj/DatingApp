@@ -178,3 +178,9 @@ Here, we use Cloudinary:-
 4. API saves photo URL and Public ID to DB
 5. Saved in DB and gives auto generated ID
 6. 201 response created and send to client with location in header
+
+## For file uploading
+we use [ng2-file-upload](https://valor-software.com/ng2-file-upload/)
+```
+    npm install ng2-file-upload
+```
