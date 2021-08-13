@@ -2,8 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs/operators';
 import { Member } from 'src/app/_models/member';
+import { Photo } from 'src/app/_models/photo';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
+import { MembersService } from 'src/app/_services/members.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -20,7 +22,7 @@ export class PhotoEditorComponent implements OnInit {
   baseUrl = environment.apiUrl;
   user: User;
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, private memberSerivce: MembersService) {
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
       this.user = user;
     })
@@ -32,6 +34,28 @@ export class PhotoEditorComponent implements OnInit {
 
   fileOverBase(e: any) {
     this.hasBaseDropZoneOver = e;
+  }
+
+  setMainPhoto(photo: Photo) {
+    this.memberSerivce.setMainPhoto(photo.id).subscribe(() => {
+      this.user.photoUrl = photo.url;
+      // update the mainImage in our currentUser$ observable and store in local storage
+      this.accountService.setCurrentUser(this.user);
+      // update the member photoUrl
+      this.member.photoUrl = photo.url;
+
+      // in photo collection, change the new main photo to true and old one to false
+      this.member.photos.forEach(p => {
+        // setting old main photo to false
+        if (p.isMain) {
+          p.isMain = false;
+        }
+        // setting new main photo to true
+        if (p.id === photo.id) {
+          p.isMain = true;
+        }
+      })
+    })
   }
 
   initializeUploader() {
