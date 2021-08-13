@@ -58,6 +58,13 @@ export class PhotoEditorComponent implements OnInit {
     })
   }
 
+  deletePhoto(photoId: number) {
+    this.memberSerivce.deletePhoto(photoId).subscribe(() => {
+      // for removing photo that was deleted.
+      this.member.photos = this.member.photos.filter(p => p.id !== photoId);
+    })
+  }
+
   initializeUploader() {
     // configuring the file uploader
     this.uploader = new FileUploader({
