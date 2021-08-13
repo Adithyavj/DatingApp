@@ -25,8 +25,7 @@ export class AccountService {
       map((response: User) => {
         const user = response;
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user)); // setting user in localstorage using the key 'user' (we convert the object into string before sending it to server)
-          this.currentUserSource.next(user);
+          this.setCurrentUser(user);
         }
       })
     )
@@ -37,18 +36,16 @@ export class AccountService {
       // once a user registers, we consider them to be logged in
       map((user: User) => {
         if (user) {
-          localStorage.setItem('user', JSON.stringify(user));
-          this.currentUserSource.next(user);
+          this.setCurrentUser(user);
         }
         return user;
       })
     )
   }
 
-
-
   // helper method
   setCurrentUser(user: User) {
+    localStorage.setItem('user', JSON.stringify(user)); // setting user in localstorage using the key 'user' (we convert the object into string before sending it to server)
     this.currentUserSource.next(user);
   }
 
