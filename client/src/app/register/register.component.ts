@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
@@ -9,6 +10,7 @@ import { AccountService } from '../_services/account.service';
 })
 export class RegisterComponent implements OnInit {
   model: any = {};
+  registerForm: FormGroup;
   // passing values from parent component to child (here home to register)
   // in this case this input() will get the users from home
   // @Input() usersFromHomeComponent: any;
@@ -20,16 +22,27 @@ export class RegisterComponent implements OnInit {
   constructor(private accountService: AccountService, private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.initializeForm();
+  }
+
+  initializeForm() {
+    this.registerForm = new FormGroup({
+      username: new FormControl(),
+      password: new FormControl(),
+      confirmPassword: new FormControl()
+    })
   }
 
   register() {
-    this.accountService.register(this.model).subscribe(response => {
-      console.log(response);
-      this.cancel();
-    }, error => {
-      console.log(error);
-      this.toastr.error(error.error);
-    });
+    console.log(this.registerForm.value);
+
+    // this.accountService.register(this.model).subscribe(response => {
+    //   console.log(response);
+    //   this.cancel();
+    // }, error => {
+    //   console.log(error);
+    //   this.toastr.error(error.error);
+    // });
   }
 
   cancel() {
