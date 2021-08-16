@@ -9,20 +9,25 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  model: any = {};
-  registerForm: FormGroup;
-  // passing values from parent component to child (here home to register)
-  // in this case this input() will get the users from home
-  // @Input() usersFromHomeComponent: any;
 
   // passing value from child to parent component
   // when we click cancel, we need to emit a value using this so that register is hidden/removed 
   @Output() cancelRegister = new EventEmitter();
 
+  model: any = {};
+  registerForm: FormGroup;
+  maxDate: Date;
+  // passing values from parent component to child (here home to register)
+  // in this case this input() will get the users from home
+  // @Input() usersFromHomeComponent: any;
+
+
   constructor(private accountService: AccountService, private toastr: ToastrService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     this.initializeForm();
+    this.maxDate = new Date();
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
   }
 
   initializeForm() {
