@@ -6,6 +6,7 @@ using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Interfaces;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,8 +16,10 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
-        public AccountController(DataContext context, ITokenService tokenService)
+        private readonly IMapper _mapper;
+        public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
+            _mapper = mapper;
             _tokenService = tokenService;
             _context = context;
         }
@@ -31,24 +34,24 @@ namespace API.Controllers
                 return BadRequest("UserName is taken");
             }
 
+            // using automapper to map from registerDto to AppUser
+            var user = _mapper.Map<AppUser>(registerDto);
 
             // The 'using' is used so that it is disposed after use
             // we use Hmacsha512 algoritham to hash the password before saving it to DB.
             using var hmac = new HMACSHA512();
 
-            var user = new AppUser
-            {
-                UserName = registerDto.Username.ToLower(),
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)), // converting password to byte[] and passing it to computeHash to generate the hash using hmac algorithm
-                PasswordSalt = hmac.Key // this is the key with which password is being hashed in hmac
-            };
+            user.UserName = registerDto.Username.ToLower();
+            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)); // converting password to byte[] and passing it to computeHash to generate the hash using hmac algorithm
+            user.PasswordSalt = hmac.Key; // this is the key with which password is being hashed in hmac
 
             _context.Users.Add(user); // start tracking it
             await _context.SaveChangesAsync(); // save changes to DB
             return new UserDto
             {
                 UserName = user.UserName,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                KnownAs = user.KnownAs
             };
         }
 
@@ -84,7 +87,8 @@ namespace API.Controllers
             {
                 UserName = user.UserName,
                 Token = _tokenService.CreateToken(user),
-                PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url
+                PhotoUrl = user.Photos.FirstOrDefault(p => p.IsMain)?.Url,
+                KnownAs = user.KnownAs
             };
         }
 
