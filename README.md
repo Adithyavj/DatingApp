@@ -209,3 +209,23 @@ domain object collection.
 - Abstraction of an abstraction (EF is already an abstraction)
 - Each root entity should have it's own repository (more code)
 - Also need to implement the UnitOfWork pattern to control transactions.
+
+## Pagination
+- Helps avoid performance problems.
+- Pagination Parameters are passed by query string.
+  - www.url.com/api/users?pageNumber=1&pageSize=5
+- Page size should be limited.
+- We should always page results.
+
+## Deferred Execution
+eg:- 
+```
+  var query = context.Users
+              .Where(x => x.Gender == gender)
+              .OrderBy(x => x.UserName)
+              .Take(5)
+              .Skip(5)
+
+      query.count() // to get total count
+```
+We user take and skip operations for pagination - take 5 records and skip first 5.
