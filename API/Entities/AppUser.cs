@@ -21,12 +21,7 @@ namespace API.Entities
         public string City { get; set; }
         public string Country { get; set; }
         public ICollection<Photo> Photos { get; set; }
-
-
-        // calls an extension method on datetime that we created to calculate the Age based on dob
-        // public int GetAge()
-        // {
-        //     return DateOfBirth.CalculateAge();
-        // }
+        public ICollection<UserLike> LikedByUsers { get; set; } // collection of users who have liked me (currently loggedIn user)
+        public ICollection<UserLike> LikedUsers { get; set; }   // collection of users who i have liked
     }
 }
