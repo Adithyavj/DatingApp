@@ -14,12 +14,21 @@ export class MembersService {
 
   baseUrl = environment.apiUrl;
   members: Member[] = [];
+  memberCache = new Map(); // key value map to do caching
 
   constructor(private http: HttpClient) { }
 
 
   // get all users, pass token (this will be done by jwt interceptor)
   getMembers(userParams: UserParams) {
+
+    // use map and key to do chaching.
+    var response = this.memberCache.get(Object.values(userParams).join('-'));
+
+    if (response) {
+      return of(response);
+    }
+
     let params = this.getPaginationHeader(userParams.pageNumber, userParams.pageSize);
 
     // adding all required params in query string
@@ -28,7 +37,11 @@ export class MembersService {
     params = params.append('gender', userParams.gender);
     params = params.append('orderBy', userParams.orderBy);
     // passing in params also with the get request, so we get full response back and need to get the body from it ourselves
-    return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params);
+    return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params)
+      .pipe(map(response => {
+        this.memberCache.set(Object.values(userParams).join('-'), response);
+        return response;
+      }));
   }
 
   // get user by username
