@@ -46,11 +46,18 @@ export class MembersService {
 
   // get user by username
   getMember(username: string) {
-    const member = this.members.find(x => x.userName === username)
-    // if the user is present in the members array, then no need to make api call
-    if (member !== undefined) {
+    // we user spread operator
+    const member = [...this.memberCache.values()]
+      .reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((mem: Member) => mem.userName === username);
+
+    if (member) {
       return of(member);
     }
+
+
+
+
     return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
 
