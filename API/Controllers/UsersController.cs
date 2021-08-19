@@ -35,18 +35,19 @@ namespace API.Controllers
         // IEnumberable return a collection of users
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            // old code
-            #region Old-Code
-            // var users = await _userRepository.GetUsersAsync();
+            var user = await _userRepository.GetUserByUsernameAsync(User.GetUserName());
 
-            // // using automapper to map users to MemberDto
-            // var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
+            userParams.CurrentUsername = user.UserName;
 
-            // // since we are returning an ActionResult, we wrap it in OK()
-            // return Ok(usersToReturn);
-            #endregion
+            // if no particular gender is passed in the query string,
+            if (string.IsNullOrEmpty(userParams.Gender))
+            {
+                // if the current user is a Male, the memberlist should return females and viceversa
+                // swapping gender
+                userParams.Gender = user.Gender == "male" ? "female" : "male";
+            }
+
             var users = await _userRepository.GetMembersAsync(userParams);
-
 
             // get access to httpResponse and add pagination to the header of the response.
             Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);

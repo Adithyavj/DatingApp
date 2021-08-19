@@ -33,13 +33,19 @@ namespace API.Data
         // only return required no. of results as reponse to show them as pages
         public async Task<PagedList<MemberDto>> GetMembersAsync(UserParams userParams)
         {
-            var query = _context.Users
-                    .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-                    .AsNoTracking(); // turn off tracking.
+            var query = _context.Users.AsQueryable();
+
+            // add additional filters
+            // remove current user from the list
+            query = query.Where(u => u.UserName != userParams.CurrentUsername);
+            // remove same gender 
+            query = query.Where(u => u.Gender == userParams.Gender);
 
             // passes the data to pagedList class method execute the query to get data from db (total record count and the results how much to get
             // based on the pagenumber and pagesize ).
-            return await PagedList<MemberDto>.CreateAsync(query, userParams.PageNumber, userParams.PageSize);
+            return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.
+                    ConfigurationProvider).AsNoTracking(),
+                        userParams.PageNumber, userParams.PageSize);
 
         }
 
