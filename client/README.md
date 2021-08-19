@@ -184,3 +184,9 @@ we use [ng2-file-upload](https://valor-software.com/ng2-file-upload/)
 ```
     npm install ng2-file-upload
 ```
+
+## For Last active we can use timeago module
+we user ngx-timeago
+```
+    npm i ngx-timeago
+```
