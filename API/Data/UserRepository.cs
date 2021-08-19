@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,6 +41,11 @@ namespace API.Data
             query = query.Where(u => u.UserName != userParams.CurrentUsername);
             // remove same gender 
             query = query.Where(u => u.Gender == userParams.Gender);
+
+            var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
+            var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
+
+            query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
 
             // passes the data to pagedList class method execute the query to get data from db (total record count and the results how much to get
             // based on the pagenumber and pagesize ).
