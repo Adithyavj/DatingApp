@@ -40,6 +40,9 @@ namespace API.Extensions
             // Adding service for cloudinarySettings- for accessing the settings via the CloudinarySettings class
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 
+            // Adding service to set the user's lastactive date
+            services.AddScoped<LogUserActivity>();
+
             return services;
         }
     }
