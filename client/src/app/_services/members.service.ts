@@ -17,16 +17,15 @@ export class MembersService {
 
   constructor(private http: HttpClient) { }
 
-
+  
   // get all users, pass token (this will be done by jwt interceptor)
   getMembers(userParams: UserParams) {
     let params = this.getPaginationHeader(userParams.pageNumber, userParams.pageSize);
 
     // adding all required params in query string
-    params.append('minAge', userParams.minAge.toString());
-    params.append('maxAge', userParams.maxAge.toString());
-    params.append('gender', userParams.gender);
-
+    params = params.append('minAge', userParams.minAge.toString());
+    params = params.append('maxAge', userParams.maxAge.toString());
+    params = params.append('gender', userParams.gender);
     // passing in params also with the get request, so we get full response back and need to get the body from it ourselves
     return this.getPaginatedResult<Member[]>(this.baseUrl + 'users', params);
   }
