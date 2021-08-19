@@ -47,6 +47,13 @@ namespace API.Data
 
             query = query.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
 
+            // add sorting option using new switch expression in c#
+            query = userParams.OrderBy switch
+            {
+                "created" => query.OrderByDescending(u => u.Created),
+                _ => query.OrderByDescending(u => u.LastActive) // _ for switch default case
+            };
+
             // passes the data to pagedList class method execute the query to get data from db (total record count and the results how much to get
             // based on the pagenumber and pagesize ).
             return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(_mapper.
