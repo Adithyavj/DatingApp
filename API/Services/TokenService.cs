@@ -27,7 +27,8 @@ namespace API.Services
             // adding claims to the jwt token
             var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.NameId, user.UserName) // we use the NameId to store user.UserName
+                new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()), // we use the NameId to store user.Id
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName) // we use the UniqueName to store user.userName
             };
 
             // adding credentials to token
