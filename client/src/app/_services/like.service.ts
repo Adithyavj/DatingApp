@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { AccountService } from './account.service';
+import { Member } from '../_models/member';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class LikeService {
 
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private accountService: AccountService) { }
+  constructor(private http: HttpClient) { }
 
   // call endpoint to add likes (post)
   addLike(username: string) {
@@ -19,7 +19,7 @@ export class LikeService {
 
   // call endpoint to getlikes
   getLikes(predicate: string) {
-    return this.http.get(this.baseUrl + 'likes?=' + predicate);
+    return this.http.get<Partial<Member[]>>(this.baseUrl + 'likes?predicate=' + predicate);
   }
 
 }
