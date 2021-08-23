@@ -34,8 +34,6 @@ namespace API.Data
                 .WithMany(l => l.LikedByUsers)
                 .HasForeignKey(s => s.LikedUserId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-
         }
     }
 }

@@ -33,6 +33,7 @@ namespace API.Extensions
 
             // add dependency injection for repositories
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
 
             // Adding automapper DI
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
