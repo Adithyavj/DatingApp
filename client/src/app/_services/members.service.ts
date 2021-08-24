@@ -100,7 +100,7 @@ export class MembersService {
   }
 
 
-  private getPaginatedResult<T>(url, params) {
+  public getPaginatedResult<T>(url, params) {
 
     const paginatedResult: PaginatedResult<T> = new PaginatedResult<T>(); // store results in this.
 
