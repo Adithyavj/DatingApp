@@ -75,5 +75,16 @@ namespace API.Controllers
 
             return messages;
         }
+
+        [HttpGet("thread/{username}")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string username)
+        {
+            // logged in user
+            var currentUsername = User.GetUserName();
+
+            var messageThread = await _messageRepository.GetMessageThread(currentUsername, username);
+
+            return Ok(messageThread);
+        }
     }
 }
