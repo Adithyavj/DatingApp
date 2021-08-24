@@ -229,3 +229,9 @@ eg:-
       query.count() // to get total count
 ```
 We user take and skip operations for pagination - take 5 records and skip first 5.
+
+
+## Messaging Feature
+A single user can send and recieve many message. So many to many relation.
+Angular Query Parameters.
+Angular Route resolvers - get data when a route is activated before a component is rendered
