@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Member } from '../_models/member';
-import { MembersService } from './members.service';
+import { getPaginatedResult, getPaginationHeader } from './paginationHelper';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class LikeService {
 
   baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private memberService: MembersService) { }
+  constructor(private http: HttpClient) { }
 
   // call endpoint to add likes (post)
   addLike(username: string) {
@@ -21,11 +21,11 @@ export class LikeService {
   // call endpoint to getlikes
   getLikes(predicate: string, pageNumber, pageSize) {
 
-    let params = this.memberService.getPaginationHeader(pageNumber, pageSize);
+    let params = getPaginationHeader(pageNumber, pageSize);
 
     params = params.append('predicate', predicate);
 
-    return this.memberService.getPaginatedResult<Partial<Member[]>>(this.baseUrl + 'likes', params);
+    return getPaginatedResult<Partial<Member[]>>(this.baseUrl + 'likes', params, this.http);
   }
 
 }
