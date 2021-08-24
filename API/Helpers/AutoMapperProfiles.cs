@@ -20,6 +20,11 @@ namespace API.Helpers
             CreateMap<Photo, PhotoDto>();
             CreateMap<MemberUpdateDto, AppUser>(); // for updating data
             CreateMap<RegisterDto, AppUser>();
+            CreateMap<Message, MessageDto>()
+                .ForMember(dest => dest.SenderPhotoUrl,
+                            opt => opt.MapFrom(src => src.Sender.Photos.FirstOrDefault(x => x.IsMain).Url)) // to map the senders photoUrl
+                .ForMember(dest => dest.RecipientPhotoUrl,
+                            opt => opt.MapFrom(src => src.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url)); // to map the recievers photoUrl
         }
     }
 }
