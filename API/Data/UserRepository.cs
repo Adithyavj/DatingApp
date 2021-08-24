@@ -83,7 +83,7 @@ namespace API.Data
 
         public async Task<bool> SaveAllAsync()
         {
-            return await _context.SaveChangesAsync() > 0; // if > 1 changes have been made
+            return await _context.SaveChangesAsync() > 0; // if > 0 changes have been made and return true
         }
 
         public void Update(AppUser user)
