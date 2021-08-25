@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation } from '@kolkov/ngx-gallery';
+import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { Member } from 'src/app/_models/member';
+import { Message } from 'src/app/_models/message';
 import { MembersService } from 'src/app/_services/members.service';
+import { MessageService } from 'src/app/_services/message.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -10,11 +13,17 @@ import { MembersService } from 'src/app/_services/members.service';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
+  // use a template reference variable to refer to an element inside the DOM
+  // https://angular.io/guide/template-reference-variables
+  @ViewChild('memberTabs') memberTabs: TabsetComponent;
+
   member: Member;
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
+  activeTab: TabDirective;
+  messages: Message[] = [];
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute) { }
+  constructor(private memberService: MembersService, private route: ActivatedRoute, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.loadMember();
@@ -49,6 +58,21 @@ export class MemberDetailComponent implements OnInit {
       this.member = member;
       this.galleryImages = this.getImages();
     })
+  }
+
+  loadMessage() {
+    this.messageService.getMessageThread(this.member.userName).subscribe(response => {
+      this.messages = response;
+    });
+  }
+
+  //Check if tab is active and if the activated tab is Messages tab,
+  //then call the function to loadMessages(api call)
+  onTabActivated(data: TabDirective) {
+    this.activeTab = data;
+    if (this.activeTab.heading === 'Messages' && this.messages.length === 0) {
+      this.loadMessage();
+    }
   }
 
 }
