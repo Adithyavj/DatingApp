@@ -37,13 +37,7 @@ namespace API.Controllers
             // using automapper to map from registerDto to AppUser
             var user = _mapper.Map<AppUser>(registerDto);
 
-            // The 'using' is used so that it is disposed after use
-            // we use Hmacsha512 algoritham to hash the password before saving it to DB.
-            using var hmac = new HMACSHA512();
-
             user.UserName = registerDto.Username.ToLower();
-            user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)); // converting password to byte[] and passing it to computeHash to generate the hash using hmac algorithm
-            user.PasswordSalt = hmac.Key; // this is the key with which password is being hashed in hmac
 
             _context.Users.Add(user); // start tracking it
             await _context.SaveChangesAsync(); // save changes to DB
@@ -67,21 +61,6 @@ namespace API.Controllers
             if (user == null)
             {
                 return Unauthorized("Invalid username");
-            }
-
-            // if user is there in db, we need to compare the password stored in DB to what user has provided
-            // so we need to get the hashed version of the user provided password
-            // we pass in the passwordSalt stored in db as the key to decrypt it
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
-
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i])
-                {
-                    return Unauthorized("Invalid password");
-                }
             }
 
             return new UserDto

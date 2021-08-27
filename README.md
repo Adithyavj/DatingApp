@@ -235,3 +235,13 @@ We user take and skip operations for pagination - take 5 records and skip first 
 A single user can send and recieve many message. So many to many relation.
 Angular Query Parameters.
 Angular Route resolvers - get data when a route is activated before a component is rendered
+
+## ASP.NET Identity
+Refactoring the application to replace custom authentication with ASP.NET Identity.
+- Role Management
+- Policy based authorisation
+- UserManager<T>,SignInManager<T>,RoleManager<T>
+- ASP.NET Identity comes with a password hasher with 10,000 salt iterations
+- Identity is a full functional framework for managing members and roles.
+- provides an EF schema to create the needed tables.
+- Highly customisable.

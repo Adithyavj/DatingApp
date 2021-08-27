@@ -15,10 +15,7 @@ namespace API.Data
         public static async Task SeedUser(DataContext context)
         {
             // if there are values don't insert
-            if (await context.Users.AnyAsync())
-            {
-                return;
-            }
+            if (await context.Users.AnyAsync()) return;
 
             // read data from file
             var userData = await File.ReadAllTextAsync("Data/UserSeedData.json");
@@ -27,13 +24,9 @@ namespace API.Data
             // loop through the list and track values
             foreach (var user in users)
             {
-                using var hmac = new HMACSHA512();
-
                 user.UserName = user.UserName.ToLower(); // converting to lowercase
-                user.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes("password")); // generating passwordhash using hardcoded password: "password"
-                user.PasswordSalt = hmac.Key; // salt/key of the password
 
-                context.Users.Add(user);                
+                await context.Users.AddAsync(user);
             }
             // add values to Database
             await context.SaveChangesAsync();
