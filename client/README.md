@@ -190,3 +190,6 @@ we user ngx-timeago
 ```
     npm i ngx-timeago
 ```
+
+## Route Resolvers
+Allow to Get access to data before component is created.

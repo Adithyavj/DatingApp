@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <div *ngif="messages?.length === 0">
+        <div *ngIf="messages?.length == 0">
             No messages yet.......say hi by using the message box below.
         </div>
         <ul class="chat" *ngIf="messages?.length > 0">

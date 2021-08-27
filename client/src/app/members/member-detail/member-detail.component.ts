@@ -26,7 +26,9 @@ export class MemberDetailComponent implements OnInit {
   constructor(private memberService: MembersService, private route: ActivatedRoute, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.loadMember();
+    this.route.data.subscribe(data => {
+      this.member = data.member;
+    })
     // if we have something in the query params, check the tab no. and activate required tab
     this.route.queryParams.subscribe(params => {
       params.tab ? this.selectTab(3) : this.selectTab(0);
@@ -41,6 +43,7 @@ export class MemberDetailComponent implements OnInit {
         preview: false
       }
     ]
+    this.galleryImages = this.getImages(); // get images from endpoint
   }
 
   // function to loop through the photos of a person and add all urls to a const[] and return it
@@ -54,14 +57,6 @@ export class MemberDetailComponent implements OnInit {
       })
     }
     return imageUrls;
-  }
-
-  // load member details based on the username passed in the url when routed form memberlist to memberdetails
-  loadMember() {
-    this.memberService.getMember(this.route.snapshot.paramMap.get('username')).subscribe(member => {
-      this.member = member;
-      this.galleryImages = this.getImages();
-    })
   }
 
   loadMessage() {
