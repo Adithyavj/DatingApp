@@ -29,4 +29,8 @@ export class MessageService {
     // passing the data as a new object with key and value
     return this.http.post<Message>(this.baseUrl + 'messages', { recipientUsername: username, content: content });
   }
+
+  deleteMessage(id: number) {
+    return this.http.delete(this.baseUrl + 'messages/' + id);
+  }
 }
