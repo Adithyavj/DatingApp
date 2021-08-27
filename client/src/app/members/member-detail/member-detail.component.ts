@@ -15,7 +15,7 @@ import { MessageService } from 'src/app/_services/message.service';
 export class MemberDetailComponent implements OnInit {
   // use a template reference variable to refer to an element inside the DOM
   // https://angular.io/guide/template-reference-variables
-  @ViewChild('memberTabs') memberTabs: TabsetComponent;
+  @ViewChild('memberTabs', { static: true }) memberTabs: TabsetComponent;
 
   member: Member;
   galleryOptions: NgxGalleryOptions[];
@@ -27,6 +27,10 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMember();
+    // if we have something in the query params, check the tab no. and activate required tab
+    this.route.queryParams.subscribe(params => {
+      params.tab ? this.selectTab(3) : this.selectTab(0);
+    })
     this.galleryOptions = [
       {
         width: '500px',
@@ -76,6 +80,9 @@ export class MemberDetailComponent implements OnInit {
   }
 
   selectTab(tabId: number) {
-    this.memberTabs.tabs[tabId].active = true;    
+    if (this.memberTabs != undefined) {
+      this.memberTabs.tabs[tabId].active = true;
+    }
+
   }
 }
