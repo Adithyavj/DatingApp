@@ -45,6 +45,13 @@ export class AccountService {
 
   // helper method
   setCurrentUser(user: User) {
+
+    // set user roles
+    user.roles = [];
+    const roles = this.getDecodedToken(user.token).role; // get the role from the token payload
+    // if user has more than one role, it returns a role [] else a string
+    Array.isArray(roles) ? user.roles = roles : user.roles.push(roles);
+
     localStorage.setItem('user', JSON.stringify(user)); // setting user in localstorage using the key 'user' (we convert the object into string before sending it to server)
     this.currentUserSource.next(user);
   }
@@ -52,5 +59,11 @@ export class AccountService {
   logout() {
     localStorage.removeItem('user'); // remove user from localstorage
     this.currentUserSource.next(null);
+  }
+
+  getDecodedToken(token) {
+    // atob - The atob() method decodes a base-64 encoded string.
+    // decode the 2nd part of the token - PayLoad
+    return JSON.parse(atob(token.split('.')[1]));
   }
 }
