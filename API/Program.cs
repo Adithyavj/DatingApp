@@ -25,7 +25,7 @@ namespace API
             {
                 var context = services.GetRequiredService<DataContext>();
                 await context.Database.MigrateAsync(); // used to apply all migrations to db(in case no db, create db)
-                await Seed.SeedUser(context);
+                // await Seed.SeedUser(context);
             }
             catch (Exception ex)
             {
