@@ -27,6 +27,7 @@ import { MemberMessagesComponent } from './members/member-messages/member-messag
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { AdminPanelComponent } from './admin/admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     PhotoEditorComponent,
     TextInputComponent,
     DateInputComponent,
-    MemberMessagesComponent
+    MemberMessagesComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
