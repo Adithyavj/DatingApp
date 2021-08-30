@@ -25,10 +25,11 @@ namespace API
             var services = scope.ServiceProvider;
             try
             {
-                var context = services.GetRequiredService<DataContext>(); 
+                var context = services.GetRequiredService<DataContext>();
                 var userManager = services.GetRequiredService<UserManager<AppUser>>(); // create UserManager of type AppUser
+                var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
                 await context.Database.MigrateAsync(); // used to apply all migrations to db(in case no db, create db)
-                await Seed.SeedUser(userManager); // pass in the userManager to SeedUser to insert the seed data to the AppUser table.
+                await Seed.SeedUser(userManager, roleManager); // pass in the userManager to SeedUser to insert the seed data to the AppUser table.
             }
             catch (Exception ex)
             {
