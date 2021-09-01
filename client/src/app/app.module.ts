@@ -30,6 +30,8 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { UserManagementComponent } from './admin/user-management/user-management.component';
+import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { LoadingInterceptor } from './_interceptors/loading.interceptor';
     DateInputComponent,
     MemberMessagesComponent,
     AdminPanelComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    UserManagementComponent,
+    PhotoManagementComponent
   ],
   imports: [
     BrowserModule,
