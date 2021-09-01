@@ -59,7 +59,10 @@ namespace API
 
             app.UseRouting();
             // add cors to accept the requests from Angular running in localhost:4200
-            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+            app.UseCors(policy => policy.AllowAnyHeader()
+                                        .AllowAnyMethod()
+                                        .AllowCredentials()
+                                        .WithOrigins("https://localhost:4200"));
 
             // middleware for authentication
             app.UseAuthentication();

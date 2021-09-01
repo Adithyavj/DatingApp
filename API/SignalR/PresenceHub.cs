@@ -1,10 +1,13 @@
 using System;
 using System.Threading.Tasks;
 using API.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace API.SignalR
 {
+    // SignalR websockets cannot send authentication headers, we user query string to send data.
+    [Authorize]
     public class PresenceHub : Hub
     {
         public override async Task OnConnectedAsync()
