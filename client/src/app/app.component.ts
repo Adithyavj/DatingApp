@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
+import { PresenceService } from './_services/presence.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit {
   users: any;
 
   // we inject accountService which handles the http requests from api here
-  constructor(private accountService: AccountService) { }
+  constructor(private accountService: AccountService, private presence: PresenceService) { }
   // onInit is a lifecycle event and works after constructor
   ngOnInit() {
     this.setCurrentUser();
@@ -22,7 +23,10 @@ export class AppComponent implements OnInit {
   // on loading the app, if there is a logged in user detail in the localstorage, set him as current user else null.
   setCurrentUser() {
     const user: User = JSON.parse(localStorage.getItem('user'));  // get the current user from localstorage and convert it to JSON before using it
-    this.accountService.setCurrentUser(user);
-    // console.log(user);
+    if (user) {
+      this.accountService.setCurrentUser(user);
+      // start presenceHub connection
+      this.presence.createHubConnection(user);
+    }
   }
 }
