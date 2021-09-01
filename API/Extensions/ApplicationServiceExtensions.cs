@@ -2,6 +2,7 @@ using API.Data;
 using API.Helpers;
 using API.Interfaces;
 using API.Services;
+using API.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,9 @@ namespace API.Extensions
 
             // Adding service to set the user's lastactive date
             services.AddScoped<LogUserActivity>();
+
+            // Add service for presence tracker (SignalR) to be shared among all connections coming to server
+            services.AddSingleton<PresenceTracker>();
 
             return services;
         }
