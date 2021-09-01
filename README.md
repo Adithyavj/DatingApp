@@ -245,3 +245,28 @@ Refactoring the application to replace custom authentication with ASP.NET Identi
 - Identity is a full functional framework for managing members and roles.
 - provides an EF schema to create the needed tables.
 - Highly customisable.
+
+## SignalR
+Open source library that provides realtime web functionality to the application.
+- Setting up SignalR in API and client.
+- Implement live chat between users.
+
+SignalR is good for:
+  - Dashboards and monitoring apps.
+  - Collaborative apps.
+  - Apps that require notification.
+  - Chat apps.
+Features:
+  - Handles connection mgmt automatically.
+  - sends message to all connected clients simultaneously.
+  - sends message to specific clients or group of clients.
+  - Supports :
+        - WebSockets
+        - Server-sent events
+        - Long polling
+
+SignalR uses maily 4 technologies:
+- WebSockets
+- Event Source (Server-sent events)
+- Forever Frames
+- Long polling (AJAX long polling)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using API.Extensions;
 using API.Middleware;
+using API.SignalR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,8 @@ namespace API
             services.AddApplicationServices(_config);
             // Calling all services inside the identity extension method
             services.AddIdentityServices(_config);
+            // Adding signalR service
+            services.AddSignalR();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -45,7 +48,7 @@ namespace API
         {
             // use our custom middleware
             app.UseMiddleware<ExceptionMiddleware>();
-            
+
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
@@ -67,6 +70,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<PresenceHub>("hubs/presence");
             });
         }
     }
