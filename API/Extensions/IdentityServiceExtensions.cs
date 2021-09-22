@@ -39,6 +39,8 @@ namespace API.Extensions
                         ValidateAudience = false
                     };
 
+                    // In case of SignalR authentication, since the websockets use wss and not https,
+                    // we have to pass the token as a query parameters, not in header.
                     // SignalR options
                     options.Events = new JwtBearerEvents
                     {

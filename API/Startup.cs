@@ -61,7 +61,7 @@ namespace API
             // add cors to accept the requests from Angular running in localhost:4200
             app.UseCors(policy => policy.AllowAnyHeader()
                                         .AllowAnyMethod()
-                                        .AllowCredentials()
+                                        .AllowCredentials() // for signalR
                                         .WithOrigins("https://localhost:4200"));
 
             // middleware for authentication
@@ -73,6 +73,7 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                // SignalR route
                 endpoints.MapHub<PresenceHub>("hubs/presence");
             });
         }

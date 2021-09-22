@@ -4,16 +4,21 @@ using System.Threading.Tasks;
 
 namespace API.SignalR
 {
-    // Class to keep track of the presence of a user - wheather he is connected/disconnected
+    ///
+    /// Summary
+    /// Class to keep track of the presence of a user - wheather he is connected/disconnected, we use a dictionay to achieve this. However this is not scalable and is limited to small no. of users.
+    ///
     public class PresenceTracker
     {
-        // Use dictionary to store the username - key and connectionId - value
+        // Use dictionary to store the (username - key) || (List of connectionIds - value)
         private static readonly Dictionary<string, List<string>> OnlineUsers = new Dictionary<string, List<string>>();
 
         public Task UserConnected(string username, string connectionId)
         {
+            // locking the dictionay until we finish using it
             lock (OnlineUsers)
             {
+                // if it has the key, we will add the new id to the list
                 if (OnlineUsers.ContainsKey(username))
                 {
                     OnlineUsers[username].Add(connectionId);
@@ -26,6 +31,7 @@ namespace API.SignalR
             return Task.CompletedTask;
         }
 
+        // When a user disconnects remove the connectionId from the dictionary
         public Task UserDisconnected(string username, string connectionId)
         {
             lock (OnlineUsers)
@@ -53,7 +59,9 @@ namespace API.SignalR
             lock (OnlineUsers)
             {
                 // happens in memory - collect the username and store it in string[] onlineUsers
-                onlineUsers = OnlineUsers.OrderBy(k => k.Key).Select(k => k.Key).ToArray();
+                onlineUsers = OnlineUsers.OrderBy(k => k.Key)
+                                        .Select(k => k.Key)
+                                        .ToArray();
             }
 
             return Task.FromResult(onlineUsers);

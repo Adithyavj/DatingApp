@@ -10,6 +10,7 @@ namespace API.SignalR
     [Authorize]
     public class PresenceHub : Hub
     {
+        // we us the tracker to store the users in a dictionary to keep track of the users.
         private readonly PresenceTracker _tracker;
         public PresenceHub(PresenceTracker tracker)
         {
@@ -23,6 +24,7 @@ namespace API.SignalR
             await _tracker.UserConnected(Context.User.GetUserName(), Context.ConnectionId);
             // when a client is online,
             await Clients.Others.SendAsync("UserIsOnline", Context.User.GetUserName());
+
             // get all online users
             var currentUsers = await _tracker.GetOnlineUsers();
             // pass down the currently active user[] to all users (SignalR emits this to the client)
