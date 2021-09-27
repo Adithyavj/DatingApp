@@ -14,13 +14,11 @@ namespace API.Controllers
     [Authorize]
     public class LikesController : BaseApiController
     {
-        private readonly IUserRepository _userRepository;
-        private readonly ILikesRepository _likesRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public LikesController(IUserRepository userRepository, ILikesRepository likesRepository)
+        public LikesController(IUnitOfWork unitOfWork)
         {
-            _userRepository = userRepository;
-            _likesRepository = likesRepository;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpPost("{username}")]
@@ -29,9 +27,9 @@ namespace API.Controllers
             // calling externsion method on user entity to get userId
             var sourceUserId = User.GetUserId(); // loggedIn user
 
-            var likedUser = await _userRepository.GetUserByUsernameAsync(username); // all details of the person user liked
+            var likedUser = await _unitOfWork.UserRepository.GetUserByUsernameAsync(username); // all details of the person user liked
 
-            var sourceUser = await _likesRepository.GetUserWithLikes(sourceUserId); // all details of the person
+            var sourceUser = await _unitOfWork.LikesRepository.GetUserWithLikes(sourceUserId); // all details of the person
 
             if (likedUser == null)
             {
@@ -43,7 +41,7 @@ namespace API.Controllers
             }
 
             // calling method to check if the user has liked this user
-            var userLike = await _likesRepository.GetUserLike(sourceUserId, likedUser.Id);
+            var userLike = await _unitOfWork.LikesRepository.GetUserLike(sourceUserId, likedUser.Id);
 
             if (userLike != null)
             {
@@ -59,7 +57,7 @@ namespace API.Controllers
 
             sourceUser.LikedUsers.Add(userLike);
 
-            if (await _userRepository.SaveAllAsync())
+            if (await _unitOfWork.Complete())
             {
                 return Ok();
             }
@@ -72,7 +70,7 @@ namespace API.Controllers
         {
             likesParams.UserId = User.GetUserId();
 
-            var users = await _likesRepository.GetUserLikes(likesParams);
+            var users = await _unitOfWork.LikesRepository.GetUserLikes(likesParams);
 
             // since the above method returns a pagedList, it will have info in header about pageSize, number etc
             // add this to response header
