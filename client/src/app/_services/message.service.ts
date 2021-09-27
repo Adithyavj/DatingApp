@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Message } from '../_models/message';
 import { User } from '../_models/user';
@@ -31,14 +32,22 @@ export class MessageService {
 
     this.hubConnection.start().catch(error => console.log(error));
 
-    // storing the message in the observale messageThreadSource.
+    // storing the message in the observable messageThreadSource.
     this.hubConnection.on('ReceiveMessageThread', messages => {
       this.messageThreadSource.next(messages);
+    })
+
+    this.hubConnection.on('NewMessage', message => {
+      this.messageThread$.pipe(take(1)).subscribe(messages => {
+        this.messageThreadSource.next([...messages, message]);
+      })
     })
   }
 
   stopHubConnection() {
-    this.hubConnection.stop().catch(error => console.log(error));;
+    if (this.hubConnection) {
+      this.hubConnection.stop().catch(error => console.log(error));;
+    }
   }
 
 
@@ -54,9 +63,14 @@ export class MessageService {
     return this.http.get<Message[]>(this.baseUrl + 'messages/thread/' + username);
   }
 
-  sendMessage(username: string, content: string) {
+  async sendMessage(username: string, content: string) {
     // passing the data as a new object with key and value
-    return this.http.post<Message>(this.baseUrl + 'messages', { recipientUsername: username, content: content });
+    // return this.http.post<Message>(this.baseUrl + 'messages', { recipientUsername: username, content: content });
+
+    // calling the hubconnection.
+    // we are returning a promise from this method...
+    return this.hubConnection.invoke('SendMessage', { recipientUsername: username, content: content })
+      .catch(error => console.log(error));
   }
 
   deleteMessage(id: number) {
