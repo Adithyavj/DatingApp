@@ -32,10 +32,7 @@ namespace API.Extensions
             // add dependency injection for photo service (we use cloudinary)
             services.AddScoped<IPhotoService, PhotoService>();
 
-            // add dependency injection for repositories
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<ILikesRepository, LikesRepository>();
-            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Adding automapper DI
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);

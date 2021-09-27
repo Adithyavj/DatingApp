@@ -270,3 +270,7 @@ SignalR uses maily 4 technologies:
 - Event Source (Server-sent events)
 - Forever Frames
 - Long polling (AJAX long polling)
+
+
+## Unit Of Work Pattern:
+Each request is considered as a transactions.

@@ -81,11 +81,6 @@ namespace API.Data
                         .ToListAsync();
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0; // if > 0 changes have been made and return true
-        }
-
         public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified; // this lets entity framework track this
