@@ -15,6 +15,8 @@ namespace API.Data
 
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<Group> Groups { get; set; }
+        public DbSet<Connection> Connections { get; set; }
 
         // providing configuration to the entity using fluent API.
         // we want to manually set the keys and relations for this table UserLike
