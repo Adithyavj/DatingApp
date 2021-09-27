@@ -13,8 +13,9 @@ namespace API.SignalR
         // Use dictionary to store the (username - key) || (List of connectionIds - value)
         private static readonly Dictionary<string, List<string>> OnlineUsers = new Dictionary<string, List<string>>();
 
-        public Task UserConnected(string username, string connectionId)
+        public Task<bool> UserConnected(string username, string connectionId)
         {
+            bool isOnline = false;
             // locking the dictionay until we finish using it
             lock (OnlineUsers)
             {
@@ -26,19 +27,21 @@ namespace API.SignalR
                 else
                 {
                     OnlineUsers.Add(username, new List<string> { connectionId });
+                    isOnline = true;
                 }
             }
-            return Task.CompletedTask;
+            return Task.FromResult(isOnline);
         }
 
         // When a user disconnects remove the connectionId from the dictionary
-        public Task UserDisconnected(string username, string connectionId)
+        public Task<bool> UserDisconnected(string username, string connectionId)
         {
+            bool isOffline = false;
             lock (OnlineUsers)
             {
                 if (!OnlineUsers.ContainsKey(username))
                 {
-                    return Task.CompletedTask;
+                    return Task.FromResult(isOffline);
                 }
 
                 OnlineUsers[username].Remove(connectionId);
@@ -46,9 +49,10 @@ namespace API.SignalR
                 if (OnlineUsers[username].Count == 0)
                 {
                     OnlineUsers.Remove(username);
+                    isOffline = true;
                 }
             }
-            return Task.CompletedTask;
+            return Task.FromResult(isOffline);
         }
 
         // Get collection of usernames who are connected/online
