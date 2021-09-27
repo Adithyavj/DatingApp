@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using API.DTOs;
 using API.Entities;
@@ -25,6 +26,8 @@ namespace API.Helpers
                             opt => opt.MapFrom(src => src.Sender.Photos.FirstOrDefault(x => x.IsMain).Url)) // to map the senders photoUrl
                 .ForMember(dest => dest.RecipientPhotoUrl,
                             opt => opt.MapFrom(src => src.Recipient.Photos.FirstOrDefault(x => x.IsMain).Url)); // to map the recievers photoUrl
+            // mapping datetime to UTC to include Z at end of date so that client/browser can interpret it as a UTC Date.
+            CreateMap<DateTime, DateTime>().ConvertUsing(d => DateTime.SpecifyKind(d, DateTimeKind.Utc));
         }
     }
 }
