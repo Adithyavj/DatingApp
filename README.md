@@ -274,3 +274,18 @@ SignalR uses maily 4 technologies:
 
 ## Unit Of Work Pattern:
 Each request is considered as a transactions.
+
+## Publishing
+- switching from sqlite to postgresql for deploying.
+- Publishing the angular app in API server.
+- Publishing the application to Heroku.
+- Integrating Heroku to GitHub.
+- Things to consider:
+    - environment variables.
+    - localhost
+    - CORS - if hosting in different domain, update CORS in server.
+    - Database
+    - Cost 
+    - Capacity / scalability
+    - Seed Data
+    - Remove Fake delays!

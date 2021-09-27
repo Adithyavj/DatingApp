@@ -69,6 +69,9 @@ namespace API
 
             app.UseAuthorization();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             // middleware to use the endpoints and MapControllers() method to map the controllers.
             app.UseEndpoints(endpoints =>
             {
