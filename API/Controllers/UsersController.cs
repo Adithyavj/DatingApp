@@ -32,16 +32,16 @@ namespace API.Controllers
         // IEnumberable return a collection of users
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUserName());
+            var gender = await _unitOfWork.UserRepository.GetUserGender(User.GetUserName());
 
-            userParams.CurrentUsername = user.UserName;
+            userParams.CurrentUsername = User.GetUserName();
 
             // if no particular gender is passed in the query string,
             if (string.IsNullOrEmpty(userParams.Gender))
             {
                 // if the current user is a Male, the memberlist should return females and viceversa
                 // swapping gender
-                userParams.Gender = user.Gender == "male" ? "female" : "male";
+                userParams.Gender = gender == "male" ? "female" : "male";
             }
 
             var users = await _unitOfWork.UserRepository.GetMembersAsync(userParams);
