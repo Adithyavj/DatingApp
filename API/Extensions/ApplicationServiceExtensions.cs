@@ -18,7 +18,8 @@ namespace API.Extensions
             // add service for DbContext
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                //options.UseSqlite(config.GetConnectionString("DefaultConnection")); // Sqlite connection
+                options.UseNpgsql(config.GetConnectionString("DefaultConnection")); // Postgres connection
             });
             // add service for CORS
             services.AddCors();
