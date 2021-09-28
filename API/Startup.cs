@@ -79,6 +79,7 @@ namespace API
                 // SignalR routes
                 endpoints.MapHub<PresenceHub>("hubs/presence");
                 endpoints.MapHub<MessageHub>("hubs/message");
+                endpoints.MapFallbackToController("Index", "Fallback"); // Angular routes.
             });
         }
     }
