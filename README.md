@@ -289,3 +289,13 @@ Each request is considered as a transactions.
     - Capacity / scalability
     - Seed Data
     - Remove Fake delays!
+
+## Angular production build optimizations
+The production configuration engages the following build optimization features.
+
+- Ahead-of-Time (AOT) Compilation: pre-compiles Angular component templates.
+- Production mode: deploys the production environment which enables production mode.
+- Bundling: concatenates your many application and library files into a few bundles.
+- Minification: removes excess whitespace, comments, and optional tokens.
+- Uglification: rewrites code to use short, cryptic variable and function names.
+- Dead code elimination: removes unreferenced modules and much unused code
