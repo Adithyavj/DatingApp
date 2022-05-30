@@ -61,8 +61,6 @@ namespace API.Extensions
                 // or from the environment variable from Heroku, use it to set up your DbContext.
                 options.UseNpgsql(connStr);
             });
-            // add service for CORS
-            services.AddCors();
 
             // Personal Services
             // we need to specify its lifetime (how long this should be alive for once we start it)
