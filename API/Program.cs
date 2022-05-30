@@ -18,6 +18,7 @@ namespace API
     {
         public static async Task Main(string[] args)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             var host = CreateHostBuilder(args).Build();
 
             // to pass in context to the seed class seeduser() method and populate db with dummy data
