@@ -3,9 +3,9 @@
 </div>
 
 <div class="container mt-3">
-    <form #form="ngForm" class="form-inline mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
-        <div class="form-group">
-            <label>Age from</label>
+    <form #form="ngForm" class="d-flex mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
+        <div class="d-flex mx-2">
+            <label class="col-form-label me-2">Age from</label>
             <input 
                 type="number" 
                 class="form-control ml-1" 
@@ -13,8 +13,8 @@
                 name="minAge" 
                 [(ngModel)]="userParams.minAge">
         </div>
-        <div class="form-group px-2">
-            <label>Age to</label>
+        <div class="d-flex px-2">
+            <label class="col-form-label me-2">Age to</label>
             <input 
                 type="number" 
                 class="form-control ml-1" 
@@ -22,19 +22,19 @@
                 name="maxAge" 
                 [(ngModel)]="userParams.maxAge">
         </div>
-        <div class="form-group px-2">
-            <label>Show: </label>
+        <div class="d-flex px-2">
+            <label class="col-form-label me-2">Show: </label>
             <select name="gender" style="width: 130px;" class="form-control ml-1" [(ngModel)]="userParams.gender">
                 <option *ngFor="let gender of genderList" [value]="gender.value">{{gender.display}}</option>
             </select>
         </div>
 
-        <button class="btn btn-primary ml-1" type="submit">Apply Filters</button>
-        <button class="btn btn-info ml-1" (click)="resetFilter()" type="submit">Reset Filters</button>
+        <button class="btn btn-primary ms-1" type="submit">Apply Filters</button>
+        <button class="btn btn-info ms-1" (click)="resetFilter()" type="submit">Reset Filters</button>
 
         <!-- Sorting -->
         <div class="col">
-            <div class="btn-group float-right">
+            <div class="btn-group float-end">
                 <button 
                     type="button"
                     class="btn btn-primary" 

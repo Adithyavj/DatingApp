@@ -1,4 +1,4 @@
-<div class="row mb-4">
+<div class="d-flex mb-4">
     <div class="btn-group" name="container">
         <button 
             class="btn btn-primary" btnRadio='Unread' 
@@ -47,7 +47,7 @@
                         <img 
                             src="{{message.recipientPhotoUrl || './assets/user.png'}}" 
                             alt="{{message.recipientUsername}}"
-                            class="img-circle rounded-circle mr-2"
+                            class="img-circle rounded-circle me-2"
                             >
                         <strong>{{message.recipientUsername | titlecase}}</strong>
                     </div>
@@ -55,7 +55,7 @@
                         <img 
                             src="{{message.senderPhotoUrl || './assets/user.png'}}" 
                             alt="{{message.senderUsername}}"
-                            class="img-circle rounded-circle mr-2"
+                            class="img-circle rounded-circle me-2"
                             >
                         <strong>{{message.senderUsername | titlecase}}</strong>
                     </div>
