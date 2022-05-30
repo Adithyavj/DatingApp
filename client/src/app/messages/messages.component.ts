@@ -34,8 +34,10 @@ export class MessagesComponent implements OnInit {
   }
 
   pageChanged(event: any) {
-    this.pageNumber = event.page;
-    this.loadMessages();
+    if (this.pageNumber !== event.page) {
+      this.pageNumber = event.page;
+      this.loadMessages();
+    }
   }
 
   deleteMessage(id: number) {
